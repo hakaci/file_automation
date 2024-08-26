@@ -23,7 +23,7 @@ paths_to_get = [
 # CSV file path
 path_MetadataCSV = HOARD_METADATA_CSV_PATH
 
-extentions_to_rename = [".mp4", ".png", ".jpg",
+extensions_to_rename = [".mp4", ".png", ".jpg",
                         ".jpeg", ".webm", ".mov", ".gif", ".webp"]
 
 # Reverse naming constant
@@ -42,8 +42,8 @@ def main():
     metadataCSVList = u.get_metadata_csv_list(path_MetadataCSV)
 
     # Firstly lowercase then get all files
-    u.lowercase_extentions()
-    allFiles = u.file_search(paths_to_get, extentions_to_rename)
+    u.lowercase_extensions()
+    allFiles = u.file_search(paths_to_get, extensions_to_rename)
 
     # find new files
     metadataCSVList = u.get_absolute_paths_from_metadata_csv(metadataCSVList)

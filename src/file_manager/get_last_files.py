@@ -14,7 +14,7 @@ temp_path = HOARD_TEMP_PATH
 # CSV file path
 path_MetadataCSV = HOARD_METADATA_CSV_PATH
 
-extentions_to_get = [".mp4", ".png", ".jpg",
+extensions_to_get = [".mp4", ".png", ".jpg",
                      ".jpeg", ".webm", ".mov", ".gif", ".webp"]
 
 ItemAmount = 610
@@ -62,7 +62,7 @@ def clear_temp_folder_content(Paths):
         temp_path.mkdir()
 
     # get temp files
-    tempFiles = u.file_search([temp_path], extentions_to_get)
+    tempFiles = u.file_search([temp_path], extensions_to_get)
 
     #get names
     pathNames = []

@@ -22,7 +22,7 @@ paths_to_get = [
 # CSV file path
 path_MetadataCSV = HOARD_METADATA_CSV_PATH
 
-extentions_to_get = [".mp4", ".png", ".jpg",
+extensions_to_get = [".mp4", ".png", ".jpg",
                         ".jpeg", ".webm", ".mov", ".gif", ".webp"]
 
 # 37th fibonacci number for reverse naming constant

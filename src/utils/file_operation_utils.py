@@ -10,7 +10,7 @@ from config import (HOARD_GIFS_PATH,
                     HOARD_MIX_PATH, 
                     HOARD_VIDEOS_PATH,
                     HOARD_METADATA_CSV_PATH,
-                    HOARD_DROPED_METADATA_CSV_PATH,
+                    HOARD_DROPPED_METADATA_CSV_PATH,
                     HOARD_PATH
                     )
 
@@ -24,16 +24,16 @@ paths_to_get = [
 
 # CSV file path
 path_MetadataCSV = HOARD_METADATA_CSV_PATH
-path_DropedMetadataCSV = HOARD_DROPED_METADATA_CSV_PATH
+path_DroppedMetadataCSV = HOARD_DROPPED_METADATA_CSV_PATH
 
-extentions_to_get = [".mp4", ".png", ".jpg",
+extensions_to_get = [".mp4", ".png", ".jpg",
                         ".jpeg", ".webm", ".mov", ".gif", ".webp"]
 
 # title names
 fields = ["no", "file_name", "ext", "creation_date", "parent_path"]
 
 
-def file_search(paths, extentions):
+def file_search(paths, extensions):
     # Search folders and append all_files
     all_files = []
 
@@ -42,7 +42,7 @@ def file_search(paths, extentions):
         files = {
             p.resolve()
             for p in Path(path).glob("**/*") if p.suffix in
-            extentions
+            extensions
         }
         # Append found files one by one
         for file in files:
@@ -51,23 +51,23 @@ def file_search(paths, extentions):
     return all_files
 
 
-def lowercase_extentions():  # Lowercase to uppercase extentions like .PNG to .png
+def lowercase_extensions():  # Lowercase to uppercase extensions like .PNG to .png
     # Just start from folder
     paths = [HOARD_PATH]
 
-    # extentions list to lowered
-    upper_extentions = [".MP4", ".PNG", ".JPG",
+    # extensions list to lowered
+    upper_extensions = [".MP4", ".PNG", ".JPG",
                         ".JPEG", ".WEBM", ".MOV", ".GIF", ".WEBP"]
 
-    # Find all files' path with given extention
-    files = file_search(paths, upper_extentions)
+    # Find all files' path with given extension
+    files = file_search(paths, upper_extensions)
 
     for file in files:
-        # Get lowercased extention string
-        lowercased_extention = file.suffix.lower()
+        # Get lowercased extension string
+        lowercased_extension = file.suffix.lower()
 
-        # rename file with new lowercased extention
-        file.rename(file.with_suffix(lowercased_extention))
+        # rename file with new lowercased extension
+        file.rename(file.with_suffix(lowercased_extension))
 
 
 def print_extension_types(folder_path):
@@ -88,10 +88,10 @@ def print_extension_types(folder_path):
         print(f".{extension}: {count} file(s)")
 
 
-def empty_hoard_forders():
+def empty_hoard_folders():
     # search files given paths or path
-    lowercase_extentions()
-    files = file_search(paths_to_get, extentions_to_get)
+    lowercase_extensions()
+    files = file_search(paths_to_get, extensions_to_get)
 
     for file in files:
         file.unlink()
@@ -125,7 +125,7 @@ def sort_files_by_creation_date(files):
     # sort timestamp_filepath array related to timestamp
     timestamps_filepaths.sort(key=itemgetter(0))
 
-    # get path colunm.
+    # get path column.
     files = []
     for time_filespath in timestamps_filepaths:
         files.append(time_filespath[1])
@@ -135,14 +135,14 @@ def sort_files_by_creation_date(files):
 
 def rename_a_file_given_name(file, new_file_name):
     # rename the file
-    file_extention = file.suffix
+    file_extension = file.suffix
     ParentDicName = file.absolute().parent
 
     new_file_name = Path(new_file_name)
 
     # create absolute path with new name for rename function
     absolute_new_file_name = ParentDicName.joinpath(
-        new_file_name.with_suffix(file_extention))
+        new_file_name.with_suffix(file_extension))
 
     # rename
     file.rename(absolute_new_file_name)
@@ -152,7 +152,7 @@ def get_start_unixtimestamp_by_given_day(day):
     # 86400 is one day in unixtime.
     days_in_unixtime = float(day) * 86400
 
-    # Get creation_date_to_start by subtructing given days
+    # Get creation_date_to_start by subtracting given days
     utc_now = dt.now()
     creation_date_to_start = utc_now.timestamp() - days_in_unixtime
 
@@ -290,13 +290,13 @@ def update_metadata_csv():
     metadataCSVList = get_metadata_csv_list(path_MetadataCSV)
     newItemMetaData = metadataCSVList.copy()
     newItemMetaDataPath = []
-    dropedMetadataList = []
+    droppedMetadataList = []
     filesChangedDirectory = []
     filesChangedDirectoryReal = []
 
     # Firstly lowercase then get all files
-    lowercase_extentions()
-    allFiles = file_search(paths_to_get, extentions_to_get)
+    lowercase_extensions()
+    allFiles = file_search(paths_to_get, extensions_to_get)
 
     # get absolute paths from CSV file
     pathList = get_absolute_paths_from_metadata_csv(metadataCSVList)
@@ -319,7 +319,7 @@ def update_metadata_csv():
         i = 0
         for metadataCSV in newItemMetaData:
             if metadataCSV[1] == deletedItem:
-                dropedMetadataList.append(newItemMetaData.pop(i))
+                droppedMetadataList.append(newItemMetaData.pop(i))
                 break
             i += 1
 
@@ -351,8 +351,8 @@ def update_metadata_csv():
                 break
             i += 1
 
-    # apend deleted file's metadata to droped csv
-    append_metadata_csv(dropedMetadataList, path_DropedMetadataCSV)
+    # append deleted file's metadata to dropped csv
+    append_metadata_csv(droppedMetadataList, path_DroppedMetadataCSV)
 
     # write new csv file with updated path and without deleted items
     write_metadata_csv(newItemMetaData, path_MetadataCSV)

@@ -14,7 +14,7 @@ system("")
 
 
 def main():
-    print("\nWelcome to hoarder\n")
+    print("\nWelcome to File organizer\n")
 
     print("\033[0;30;47m*******Warning: Paths are static.*******\033[0;0m\n")
 

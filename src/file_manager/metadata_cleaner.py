@@ -51,7 +51,7 @@ def metadata_clean(paths):
         # move back the file
         temp_dest_of_file.replace(dest_of_org_file)
 
-    # In the end, remove temp dicrectory
+    # In the end, remove temp directory
     temp_folder.rmdir()
 
 
@@ -63,7 +63,7 @@ def clear_metadata(path_to_clean):
     # run the command line arg process
     process_1 = subprocess.run(args_metadata_clean)
 
-    # check process_1 executed sucessfully
+    # check process_1 executed successfully
     if process_1.returncode == 0:
         print(f"metadata cleaned successfully")
     else:

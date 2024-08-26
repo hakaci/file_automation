@@ -13,7 +13,7 @@ from config import (CONVERT_MP3_CSV_PATH,
 csv_file_path = CONVERT_MP3_CSV_PATH
 temp_path = CONVERT_MP3_OUTPUT_PATH
 
-extentions_to_get = [".mp4", ".webm", ".mp3"]
+extensions_to_get = [".mp4", ".webm", ".mp3"]
 # Define the CSV header
 header = ["File Name"]
 
@@ -22,7 +22,7 @@ system("")
 
 
 def update_music_name_csv(folder_path):
-    files = file_search([folder_path], extentions_to_get)
+    files = file_search([folder_path], extensions_to_get)
     # Get file names from searched file paths
     file_names = [Path(file).name for file in files]
     
@@ -69,14 +69,14 @@ def encode_to_mp3(files):
         ParentDirBaseName = basename(ParentDirName)
 
         # Get temp directory name
-        tempDiretoryName = Path(temp_path + "\\" + ParentDirBaseName)
+        tempDirectoryName = Path(temp_path + "\\" + ParentDirBaseName)
 
         # Create parent folder in temp folder if not exist
-        if not exists(tempDiretoryName):
-            makedirs(tempDiretoryName)
+        if not exists(tempDirectoryName):
+            makedirs(tempDirectoryName)
 
         # Create output path for ffmpeg output
-        output_path = tempDiretoryName.joinpath(newFileName)
+        output_path = tempDirectoryName.joinpath(newFileName)
 
         # Command line argument
         args = ["ffmpeg", "-i", file, "-vn", "-acodec", "libmp3lame", "-ab", "128k", output_path]
@@ -84,9 +84,9 @@ def encode_to_mp3(files):
         # to call ffmpeg
         process = subprocess.run(args)
 
-        # check to executed sucessfully
+        # check to executed successfully
         if process.returncode == 0:
-            print(f"sucessfully converted {file}")
+            print(f"successfully converted {file}")
             successfully_converted_file_paths.append(file)
         else:
             print(f"error converting {file}, errno: {process.returncode}")
@@ -104,7 +104,7 @@ def main():
     
     # update_music_name_csv(music_folder_path)
     
-    files = file_search([music_folder_path], extentions_to_get)
+    files = file_search([music_folder_path], extensions_to_get)
 
     new_file_paths = get_new_file_paths(files)
     

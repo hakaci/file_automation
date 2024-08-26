@@ -25,7 +25,7 @@ paths_to_get = [
 path_broken_vids = HOARD_BROKEN_VIDS_PATH
 path_reencoded = HOARD_REENCODED_PATH
 
-extensitons_to_encode = [".mov", ".webm", ".mkv"]
+extensions_to_encode = [".mov", ".webm", ".mkv"]
 
 # enables ansi escape characters in terminal
 system("") 
@@ -37,8 +37,8 @@ def main():
     encodedFilePaths = []
 
     # Firstly lowercase then search files to convert
-    u.lowercase_extentions()
-    files = u.file_search(paths_to_get, extensitons_to_encode)
+    u.lowercase_extensions()
+    files = u.file_search(paths_to_get, extensions_to_encode)
 
     # sort creation date(write util function)
     files = u.sort_files_by_creation_date(files)
@@ -75,10 +75,10 @@ def encode_to_mp4(all_files):
         # to call ffmpeg
         process = subprocess.run(args)
 
-        # check to executed sucessfully
+        # check to executed successfully
         if process.returncode == 0:
-            print(f"sucessfully converted {file}")
-            # Remove file if sucessfull
+            print(f"successfully converted {file}")
+            # Remove file if successful
             if file.exists():
                 file.unlink()
         else:
@@ -108,11 +108,11 @@ def encode_to_webm_vp8(file):
     # to call ffmpeg
     process = subprocess.run(args)
 
-    # check to executed sucessfully
+    # check to executed successfully
     if process.returncode == 0:
-        print(f"sucessfully converted {file}")
+        print(f"successfully converted {file}")
 
-        # If success, just change extention name for no more encode in future
+        # If success, just change extension name for no more encode in future
         output_name.replace(output_name.with_suffix(".mp4"))
     else:
         print(f"error converting {file}, errno: {process.returncode}")

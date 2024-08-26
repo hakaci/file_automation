@@ -1,4 +1,3 @@
-from pathlib import Path
 import os.path
 import csv
 
@@ -23,7 +22,7 @@ paths_to_get = [
 # CSV file path
 path_MetadataCSV = HOARD_METADATA_CSV_PATH
 
-extentions_to_get = [".mp4", ".png", ".jpg",
+extensions_to_get = [".mp4", ".png", ".jpg",
                         ".jpeg", ".webm", ".mov", ".gif", ".webp"]
 
 # title names
@@ -36,8 +35,8 @@ def main():
         "Wanna execute first Create Metadata CSV?(Y/N): ")
 
     if execute == "y" or execute == "Y":
-        u.lowercase_extentions()
-        all_files = u.file_search(paths_to_get, extentions_to_get)
+        u.lowercase_extensions()
+        all_files = u.file_search(paths_to_get, extensions_to_get)
 
         with open(path_MetadataCSV, "w", newline="", encoding="utf-8") as metadataCSVfile:
             # create list for metadata csv rows
