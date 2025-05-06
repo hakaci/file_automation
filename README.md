@@ -1,4 +1,6 @@
 # file_automation
+## Intro
+A collection of simple Python scripts to automate common file tasks like sorting, renaming, and organizing folders.
 ## How to run
 - Python 3.11.2
 - Before running get:
